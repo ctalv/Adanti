@@ -21,6 +21,28 @@ function displayWidgets() {
         // search
         
     }
+
+    function displayClock() {
+        // clock
+
+        
+        function refreshCount() {
+            refresh = 1000;
+            mytime = setTimeout("refreshClock()", refresh);
+
+        }
+
+        function refreshClock() {
+            var ClockDate = new Date();
+            var NewDate = ClockDate.toDateString();
+            NewDate = NewDate + " - " + ClockDate.toLocaleTimeString();
+            document.getElementById("clock").innerHTML = NewDate;
+            refreshCount();
+        }
+        
+       document.getElementsByName("body").onload = refreshClock();
+    }
+
     // TODO: check preferences and order
 
     // TEST
@@ -45,14 +67,24 @@ function displayWidgets() {
         }
     ]
 
+
+
     displaySearch()
+
+    const clockEle = document.createElement("div");
+    clockEle.setAttribute("class", "clock");
+    clockEle.setAttribute("id", "clock");
+    widgetEle.appendChild(clockEle);
+    displayClock();
+
     const appsEle = document.createElement("div");
     appsEle.setAttribute("class", "apps");
+    widgetEle.appendChild(appsEle);
     for (let i=0; i<apps.length; i++) {
         displayApps(apps[i]);
     }
 
-    widgetEle.appendChild(appsEle);
+
     
 }
 

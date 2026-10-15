@@ -2,6 +2,9 @@ body {
     background-color:rgb(17, 21, 24);
 }
 
+.clock {
+    color:aliceblue;
+}
 .apps {
     display: flex;
     justify-content: center;
