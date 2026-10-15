@@ -4,16 +4,16 @@ function displayWidgets() {
 
     function displayApps(app) {
         // apps
-        const divEle = document.createElement("div");
-        divEle.setAttribute("class", "apps");
+        const appEle = document.createElement("div");
+        appEle.setAttribute("class", "app");
         // TODO: determine list or grid (grid default)
         const imgEle = document.createElement("img");
         const aEle = document.createElement("a");
-        imgEle.setAttribute("src", "assets/icons/netflix.png");
-        aEle.setAttribute("href", "https://www.netflix.com/");
+        imgEle.setAttribute("src", app.icon);
+        aEle.setAttribute("href", app.url);
         
-        widgetEle.appendChild(divEle);
-        divEle.appendChild(aEle);
+        appsEle.appendChild(appEle);
+        appEle.appendChild(aEle);
         aEle.appendChild(imgEle);
     }
 
@@ -21,12 +21,39 @@ function displayWidgets() {
         // search
         
     }
-    let apps = [1, 2, 3]
     // TODO: check preferences and order
+
+    // TEST
+    let apps = [
+        {
+            id: 1,
+            name: "Netflix",
+            url: "https://www.netflix.com/",
+            icon: "assets/icons/netflix.png",
+        },
+        {
+            id: 2,
+            name: "Jellyfin",
+            url: "https://www.netflix.com/",
+            icon: "assets/icons/jellyfin.png",
+        },
+        {
+            id: 3,
+            name: "YouTube",
+            url: "https://www.youtube.com/",
+            icon: "assets/icons/youtube-new.png",
+        }
+    ]
+
     displaySearch()
-    for (let i=0; i<=apps.length; i++) {
-        displayApps(apps[i])
+    const appsEle = document.createElement("div");
+    appsEle.setAttribute("class", "apps");
+    for (let i=0; i<apps.length; i++) {
+        displayApps(apps[i]);
     }
+
+    widgetEle.appendChild(appsEle);
+    
 }
 
 displayWidgets()

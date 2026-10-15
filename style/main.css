@@ -1,4 +1,14 @@
-.apps img {
-    height: 100px;
-    width: 100px;
+.apps {
+    display: flex;
+    justify-content: center;
+}
+
+.app {
+    margin: 3px;
+}
+
+.app img {
+    height: 200px;
+    width: 200px;
+    border-radius: 5px;
 }
