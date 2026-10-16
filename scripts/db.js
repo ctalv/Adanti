@@ -58,7 +58,6 @@ function displayData() {
         apps: apps,
     }
 
-
     displayWidgets(data);
 
     // Declare any submit modals
@@ -108,17 +107,18 @@ createImageBlob = function (formImage) {
     }, false);
     // Send XHR
     xhr.send();
-},
+}
 
 
 // App handling
-function addApp(e) {
+function addApp() {
     e.preventDefault();
     // Open readwrite of db table
     const transaction = db.transaction(["apps"], "readwrite");
     // Once successful, do this
     transaction.oncomplete = () => {
         console.log("did it!")
+        
         displayApps();
 
     }

@@ -145,7 +145,7 @@ function displayWidgets(data) {
                     <span class="close">&times;</span>
                     </div>
                     
-                    <form id="add-app-form" class="modal-form">
+                    <form id="add-app-form" class="modal-form" method="post" enctype="multipart/form-data">
                         <label for="title">Title: </label>
                         <input type="text" id="title" name="title">
                         <label for="url">URL: </label>
@@ -174,6 +174,8 @@ function displayWidgets(data) {
     // TODO: If statement if widgets wanted
     displayClockWidget();
     displayAppWidget(apps);
+
+    
 }
 
 
