@@ -1,3 +1,4 @@
+// Initialize db
 let db;
 const dbName = "Adanti";
 const dbOpenRequest = window.indexedDB.open(dbName, 2);
@@ -37,11 +38,11 @@ dbOpenRequest.onupgradeneeded = (event) => {
 
 // Initialize data
 function displayData() {
-    const objectStore = db.transaction("apps").objectStore("apps");
+    
+    let apps = []
 
+    const objectStore = db.transaction("apps").objectStore("apps");
     objectStore.openCursor().onsuccess = (event) => {
-        console.log(objectStore);
-        console.log(event.target.result);
         const cursor = event.target.result;
         // Check if there are no (more) cursor items to iterate through
         if (!cursor) {
@@ -50,22 +51,71 @@ function displayData() {
         }
 
         const { name, url, icon } = cursor.value;
+        apps.push({ name, url, icon })
     };
 
-    displayWidgets();
+    let data = {
+        apps: apps,
+    }
+
+
+    displayWidgets(data);
 
     // Declare any submit modals
     const appForm = document.getElementById("add-app-form");
     appForm.addEventListener("submit", addApp, false);
 };
 
+// Image handling
+putImageInDb = function(blob, table, col) {
+     var transaction = db.transaction([table], IDBTransaction.READ_WRITE);
 
+    // Put the blob into the dabase
+    var put = transaction.objectStore(table).put(blob, col);
+
+    // Retrieve the file that was just stored
+    transaction.objectStore(table).get(col).onsuccess = function (event) {
+        var imgFile = event.target.result;
+        var URL = window.URL || window.webkitURL;
+        var imgURL = URL.createObjectURL(imgFile);
+        return imgURL;
+        // var imgElephant = document.getElementById("elephant");
+        // imgElephant.setAttribute("src", imgURL);
+        // URL.revokeObjectURL(imgURL);
+    };
+}
+
+// Image handling
+createImageBlob = function (formImage) {
+    // Create XHR
+    var xhr = new XMLHttpRequest(),
+        blob;
+
+    xhr.open("GET", formImage, true);
+    // Set the responseType to blob
+    xhr.responseType = "blob";
+
+    xhr.addEventListener("load", function () {
+        if (xhr.status === 200) {
+            console.log("Image retrieved");
+            
+            // Blob as response
+            blob = xhr.response;
+            console.log("Blob:" + blob);
+
+            return blob
+        }
+    }, false);
+    // Send XHR
+    xhr.send();
+},
+
+
+// App handling
 function addApp(e) {
     e.preventDefault();
     // Open readwrite of db table
-    console.log(db)
     const transaction = db.transaction(["apps"], "readwrite");
-    console.log(transaction)
     // Once successful, do this
     transaction.oncomplete = () => {
         console.log("did it!")
@@ -77,15 +127,17 @@ function addApp(e) {
         console.error(`Transaction not opened due to error: ${transaction.error}`);
     };
 
+
     const newItem = [
         {
             name: title.value,
             url: url.value,
-            icon: icon.value,
+            icon: createImageBlob(icon.value),
         },
     ];
 
     // Call an object store that's already been added to the database
+    // transaction.objectStore("apps").put(blob, "icon");
     const objectStore = transaction.objectStore("apps");
 
     // Make a request to add our newItem object to the object store
@@ -113,4 +165,3 @@ function deleteApp(event) {
         event.target.parentNode.parentNode.removeChild(event.target.parentNode);
     };
 }
-

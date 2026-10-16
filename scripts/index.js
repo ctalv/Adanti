@@ -1,5 +1,18 @@
 const widgetEle = document.getElementById("widgets");
 
+// Set all base widget divs
+const appWidgetEle = document.createElement("div");
+const clockWidgetEle = document.createElement("div");
+const searchWidgetEle = document.createElement("div");
+
+appWidgetEle.setAttribute("class", "app-widget");
+clockWidgetEle.setAttribute("class", "clock-widget");
+searchWidgetEle.setAttribute("class", "search-widget");
+
+widgetEle.appendChild(clockWidgetEle);
+widgetEle.appendChild(appWidgetEle);
+widgetEle.appendChild(searchWidgetEle);
+
 function appendModal(modalID, popModalBtn) {
     // Get the modal
     var modal = document.getElementById(modalID);
@@ -28,17 +41,18 @@ function appendModal(modalID, popModalBtn) {
     } 
 }
 
-function displayWidgets() {
-
-    // Display functions for inside widgets
-    function displayApp(app) {
+function displayApp(app) {
         // apps
         const appEle = document.createElement("div");
         appEle.setAttribute("class", "app");
         // TODO: determine list or grid (grid default)
         const imgEle = document.createElement("img");
         const aEle = document.createElement("a");
-        imgEle.setAttribute("src", app.icon);
+
+        var URL = window.URL || window.webkitURL;
+        var imgURL = URL.createObjectURL(app.icon);
+
+        imgEle.setAttribute("src", imgURL);
         aEle.setAttribute("href", app.url);
 
         appWidgetEle.appendChild(appEle);
@@ -70,6 +84,11 @@ function displayWidgets() {
         document.getElementsByName("body").onload = refreshClock();
     }
 
+function displayWidgets(data) {
+
+    // Display functions for inside widgets
+    
+
     // TODO: check preferences and order
 
     // TEST
@@ -93,7 +112,8 @@ function displayWidgets() {
     //         icon: "assets/icons/youtube-new.png",
     //     }
     // ]
-    let apps = []
+
+    let apps = data.apps
 
     // Display functions for widgets
     function displayClockWidget() {
@@ -150,22 +170,10 @@ function displayWidgets() {
         displaySearch()
     }
 
-    // Set all base widget divs
-    const appWidgetEle = document.createElement("div");
-    const clockWidgetEle = document.createElement("div");
-    const searchWidgetEle = document.createElement("div");
-
-    appWidgetEle.setAttribute("class", "app-widget");
-    clockWidgetEle.setAttribute("class", "clock-widget");
-    searchWidgetEle.setAttribute("class", "search-widget");
-
-    widgetEle.appendChild(clockWidgetEle);
-    widgetEle.appendChild(appWidgetEle);
-    widgetEle.appendChild(searchWidgetEle);
 
     // TODO: If statement if widgets wanted
     displayClockWidget();
-    displayAppWidget();
+    displayAppWidget(apps);
 }
 
 
