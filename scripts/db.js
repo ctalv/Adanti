@@ -2,6 +2,8 @@ let db;
 const dbName = "Adanti";
 const dbOpenRequest = window.indexedDB.open(dbName, 2);
 
+const appForm = document.getElementById("add-app-form");
+console.log(appForm)
 dbOpenRequest.onerror = (event) => {
   console.error("Why didn't you allow my web app to use IndexedDB?!");
   console.error(`Database error: ${event.target.error?.message}`);
@@ -31,10 +33,14 @@ dbOpenRequest.onupgradeneeded = (event) => {
   console.log("Object store created")
 };
 
-function addApp() {
-  // Open readwrite of db table
-  const transaction = db.transaction(["apps"], "readwrite");
+appForm.addEventListener("submit", addApp, false);
 
+function addApp(e) {
+  e.preventDefault();
+  // Open readwrite of db table
+  console.log(db)
+  const transaction = db.transaction(["apps"], "readwrite");
+  console.log(transaction)
   // Once successful, do this
   transaction.oncomplete = () => {
       console.log("did it!")

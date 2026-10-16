@@ -122,7 +122,7 @@ function displayWidgets() {
                     <span class="close">&times;</span>
                     </div>
                     
-                    <form class="modal-form">
+                    <form id="add-app-form" class="modal-form">
                         <label for="title">Title: </label>
                         <input type="text" id="title" name="title">
                         <label for="url">URL: </label>
