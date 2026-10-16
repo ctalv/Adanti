@@ -12,7 +12,7 @@ function displayWidgets() {
         imgEle.setAttribute("src", app.icon);
         aEle.setAttribute("href", app.url);
         
-        appsEle.appendChild(appEle);
+        appWidgetEle.appendChild(appEle);
         appEle.appendChild(aEle);
         aEle.appendChild(imgEle);
     }
@@ -24,14 +24,17 @@ function displayWidgets() {
 
     function displayClock() {
         // clock
+        const clockEle = document.createElement("div");
+        clockEle.setAttribute("class", "clock");
+        clockWidgetEle.appendChild(clockEle);
 
         function refreshClock() {
             refresh = 1000;
             mytime = setTimeout(function() {refreshClock();}, refresh);
             var ClockDate = new Date();
             var NewDate = ClockDate.toDateString();
-            NewDate = NewDate + " - " + ClockDate.toLocaleTimeString();
-            document.getElementById("clock").innerHTML = NewDate;
+            NewDate = NewDate + "<br />" + ClockDate.toLocaleTimeString();
+            clockEle.innerHTML = NewDate;
 
         }
         
@@ -66,15 +69,14 @@ function displayWidgets() {
 
     displaySearch()
 
-    const clockEle = document.createElement("div");
-    clockEle.setAttribute("class", "clock");
-    clockEle.setAttribute("id", "clock");
-    widgetEle.appendChild(clockEle);
+    const clockWidgetEle = document.createElement("div");
+    clockWidgetEle.setAttribute("class", "clock-widget");
+    widgetEle.appendChild(clockWidgetEle);
     displayClock();
 
-    const appsEle = document.createElement("div");
-    appsEle.setAttribute("class", "apps");
-    widgetEle.appendChild(appsEle);
+    const appWidgetEle = document.createElement("div");
+    appWidgetEle.setAttribute("class", "app-widget");
+    widgetEle.appendChild(appWidgetEle);
     for (let i=0; i<apps.length; i++) {
         displayApps(apps[i]);
     }
