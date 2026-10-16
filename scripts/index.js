@@ -25,19 +25,14 @@ function displayWidgets() {
     function displayClock() {
         // clock
 
-        
-        function refreshCount() {
-            refresh = 1000;
-            mytime = setTimeout("refreshClock()", refresh);
-
-        }
-
         function refreshClock() {
+            refresh = 1000;
+            mytime = setTimeout(function() {refreshClock();}, refresh);
             var ClockDate = new Date();
             var NewDate = ClockDate.toDateString();
             NewDate = NewDate + " - " + ClockDate.toLocaleTimeString();
             document.getElementById("clock").innerHTML = NewDate;
-            refreshCount();
+
         }
         
        document.getElementsByName("body").onload = refreshClock();
