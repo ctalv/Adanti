@@ -1,5 +1,33 @@
 const widgetEle = document.getElementById("widgets");
 
+function appendModal(modalID, popModalBtn) {
+    // Get the modal
+    var modal = document.getElementById(modalID);
+
+    // Get the button that opens the modal
+    var btn = document.getElementById(popModalBtn);
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    } 
+}
+
 function displayWidgets() {
 
     // Display functions for inside widgets
@@ -75,29 +103,39 @@ function displayWidgets() {
         for (let i = 0; i < apps.length; i++) {
             displayApp(apps[i]);
         }
+        // Add app button
         const addAppEle = document.createElement("div");
         addAppEle.setAttribute("class", "add-app");
-
-        const pEle = document.createElement("p");
+        const pEle = document.createElement("button");
+        pEle.setAttribute("id", "add-app-button");
         pEle.innerHTML = "+"
-
         appWidgetEle.appendChild(addAppEle);
         addAppEle.appendChild(pEle);
-        textFit(document.querySelector("add-app").getElementsByName("p"));
 
-        // const imgEle = document.createElement("img");
-        // imgEle.setAttribute("src", "assets/icons/add-icon.png")
 
-        // appWidgetEle.appendChild(addAppEle);
-        // addAppEle.appendChild(imgEle);
+        const htmlModal = `
+            <div id="add-app-modal" class="modal">
 
-        // // Icon attribution
-        // const aEle = document.createElement("a");
-        // aEle.setAttribute("href", "https://www.flaticon.com/free-icons/plus");
-        // aEle.setAttribute("title", "plus icons");
-        // aEle.setAttribute("class", "artist-attribute");
-        // aEle.innerText = "Plus icons created by Fuzzee - Flaticon";
-        // addAppEle.appendChild(aEle);
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form>
+                    <label for="title">Title: </label>
+                    <input type="text" id="title" name="title">
+                    <label for="url">URL: </label>
+                    <input type="url" id="url" name="url">
+                    <label for="icon">Icon: </label>
+                    <input type="image" id="icon" name="icon">
+                    <input type="submit" value="Submit">
+                    </form>
+                </div>
+
+            </div>
+        `;
+
+        document.getElementById("page").innerHTML += htmlModal;
+
+        appendModal("add-app-modal", "add-app-button");
 
 
     }
