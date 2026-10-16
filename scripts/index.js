@@ -112,21 +112,24 @@ function displayWidgets() {
         appWidgetEle.appendChild(addAppEle);
         addAppEle.appendChild(pEle);
 
-
+        // Add app modal
         const htmlModal = `
             <div id="add-app-modal" class="modal">
 
                 <!-- Modal content -->
                 <div class="modal-content">
+                    <div class="modal-heading">Add new app
                     <span class="close">&times;</span>
-                    <form>
-                    <label for="title">Title: </label>
-                    <input type="text" id="title" name="title">
-                    <label for="url">URL: </label>
-                    <input type="url" id="url" name="url">
-                    <label for="icon">Icon: </label>
-                    <input type="image" id="icon" name="icon">
-                    <input type="submit" value="Submit">
+                    </div>
+                    
+                    <form class="modal-form">
+                        <label for="title">Title: </label>
+                        <input type="text" id="title" name="title">
+                        <label for="url">URL: </label>
+                        <input type="url" id="url" name="url">
+                        <label for="icon" class="custom-file-upload">Icon: </label>
+                        <input type="file" id="icon" name="icon">
+                        <input type="submit" id="add-app-submit" value="Submit">
                     </form>
                 </div>
 
