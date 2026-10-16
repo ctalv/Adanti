@@ -9,7 +9,7 @@ dbOpenRequest.onerror = (event) => {
 
 dbOpenRequest.onsuccess = (event) => {
   console.log("DB LOADED")
-  db = event.target.result;
+  db = dbOpenRequest.result;
 };
 
 
@@ -18,8 +18,6 @@ dbOpenRequest.onupgradeneeded = (event) => {
 
   db.onerror = (event) => {
     console.error(`Database error: ${event.target.error?.message}`);
-
-    // note.appendChild(createListItem("Error loading database."));
   };
 
   // Create an objectStore for this database
@@ -33,26 +31,43 @@ dbOpenRequest.onupgradeneeded = (event) => {
   console.log("Object store created")
 };
 
+function addApp() {
+  // Open readwrite of db table
+  const transaction = db.transaction(["apps"], "readwrite");
 
-// request.onupgradeneeded = (event) => {
-//   // Create an objectStore to hold information about our customers. We're
-//   // going to use "ssn" as our key path because it's guaranteed to be
-//   // unique - or at least that's what I was told during the kickoff meeting.
-//   const objectStore = db.createObjectStore("apps", { keyPath: "id" });
+  // Once successful, do this
+  transaction.oncomplete = () => {
+      console.log("did it!")
+      // displayApp();
 
-//   // Create an index to search customers by name. We may have duplicates
-//   // so we can't use a unique index.
-//   objectStore.createIndex("name", "name", { unique: false });
+  }
 
-//   // Use transaction oncomplete to make sure the objectStore creation is
-//   // finished before adding data into it.
-//   objectStore.transaction.oncomplete = (event) => {
-//     // Store values in the newly created objectStore.
-//     const appObjectStore = db
-//       .transaction("apps", "readwrite")
-//       .objectStore("apps");
-//     appData.forEach((app) => {
-//     appObjectStore.add(app);
-//     });
-//   };
-// };
+  transaction.onerror = () => {
+    console.error(`Transaction not opened due to error: ${transaction.error}`);
+  };
+
+  const newItem = [
+      {
+        name: title.value,
+        url: url.value,
+        icon: icon.value,
+      },
+    ];
+
+  // Call an object store that's already been added to the database
+  const objectStore = transaction.objectStore("apps");
+
+  // Make a request to add our newItem object to the object store
+  const objectStoreRequest = objectStore.add(newItem[0]);
+
+  objectStoreRequest.onsuccess = (event) => {
+      // Report the success of our request
+      console.log("successfully added app")
+      // Clear the form, ready for adding the next entry
+      title.value = "";
+      url.value = "";
+      icon.value = "";
+    };
+
+};
+
