@@ -42,76 +42,53 @@ function appendModal(modalID, popModalBtn) {
 }
 
 function displayApp(app) {
-        // apps
-        const appEle = document.createElement("div");
-        appEle.setAttribute("class", "app");
-        // TODO: determine list or grid (grid default)
-        const imgEle = document.createElement("img");
-        const aEle = document.createElement("a");
+    // apps
+    const appEle = document.createElement("div");
+    appEle.setAttribute("class", "app");
+    // TODO: determine list or grid (grid default)
+    const imgEle = document.createElement("img");
+    const aEle = document.createElement("a");
 
-        var URL = window.URL || window.webkitURL;
-        var imgURL = URL.createObjectURL(app.icon);
+    var URL = window.URL || window.webkitURL;
+    var imgURL = URL.createObjectURL(app.icon);
 
-        imgEle.setAttribute("src", imgURL);
-        aEle.setAttribute("href", app.url);
+    imgEle.setAttribute("src", imgURL);
+    aEle.setAttribute("href", app.url);
 
-        appWidgetEle.appendChild(appEle);
-        appEle.appendChild(aEle);
-        aEle.appendChild(imgEle);
+    appWidgetEle.appendChild(appEle);
+    appEle.appendChild(aEle);
+    aEle.appendChild(imgEle);
+}
+
+function displaySearch() {
+    // search
+
+}
+
+function displayClock() {
+    // clock
+    const clockEle = document.createElement("div");
+    clockEle.setAttribute("class", "clock");
+    clockWidgetEle.appendChild(clockEle);
+
+    function refreshClock() {
+        refresh = 1000;
+        mytime = setTimeout(function () { refreshClock(); }, refresh);
+        var ClockDate = new Date();
+        var NewDate = ClockDate.toDateString();
+        NewDate = NewDate + "<br />" + ClockDate.toLocaleTimeString();
+        clockEle.innerHTML = NewDate;
+
     }
 
-    function displaySearch() {
-        // search
-
-    }
-
-    function displayClock() {
-        // clock
-        const clockEle = document.createElement("div");
-        clockEle.setAttribute("class", "clock");
-        clockWidgetEle.appendChild(clockEle);
-
-        function refreshClock() {
-            refresh = 1000;
-            mytime = setTimeout(function () { refreshClock(); }, refresh);
-            var ClockDate = new Date();
-            var NewDate = ClockDate.toDateString();
-            NewDate = NewDate + "<br />" + ClockDate.toLocaleTimeString();
-            clockEle.innerHTML = NewDate;
-
-        }
-
-        document.getElementsByName("body").onload = refreshClock();
-    }
+    document.getElementsByName("body").onload = refreshClock();
+}
 
 function displayWidgets(data) {
 
     // Display functions for inside widgets
     
-
     // TODO: check preferences and order
-
-    // TEST
-    // let apps = [
-    //     {
-    //         id: 1,
-    //         name: "Netflix",
-    //         url: "https://www.netflix.com/",
-    //         icon: "assets/icons/netflix.png",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: "Jellyfin",
-    //         url: "https://www.netflix.com/",
-    //         icon: "assets/icons/jellyfin.png",
-    //     },
-    //     {
-    //         id: 3,
-    //         name: "YouTube",
-    //         url: "https://www.youtube.com/",
-    //         icon: "assets/icons/youtube-new.png",
-    //     }
-    // ]
 
     let apps = data.apps
 
@@ -145,7 +122,7 @@ function displayWidgets(data) {
                     <span class="close">&times;</span>
                     </div>
                     
-                    <form id="add-app-form" class="modal-form" method="post" enctype="multipart/form-data">
+                    <form id="add-app-form" class="modal-form">
                         <label for="title">Title: </label>
                         <input type="text" id="title" name="title">
                         <label for="url">URL: </label>

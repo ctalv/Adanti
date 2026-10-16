@@ -12,6 +12,8 @@ dbOpenRequest.onsuccess = (event) => {
     console.log("DB LOADED")
     db = dbOpenRequest.result;
     displayData();
+
+    
 };
 
 
@@ -65,94 +67,34 @@ function displayData() {
     appForm.addEventListener("submit", addApp, false);
 };
 
-// Image handling
-putImageInDb = function(blob, table, col) {
-     var transaction = db.transaction([table], IDBTransaction.READ_WRITE);
-
-    // Put the blob into the dabase
-    var put = transaction.objectStore(table).put(blob, col);
-
-    // Retrieve the file that was just stored
-    transaction.objectStore(table).get(col).onsuccess = function (event) {
-        var imgFile = event.target.result;
-        var URL = window.URL || window.webkitURL;
-        var imgURL = URL.createObjectURL(imgFile);
-        return imgURL;
-        // var imgElephant = document.getElementById("elephant");
-        // imgElephant.setAttribute("src", imgURL);
-        // URL.revokeObjectURL(imgURL);
-    };
-}
-
-// Image handling
-createImageBlob = function (formImage) {
-    // Create XHR
-    var xhr = new XMLHttpRequest(),
-        blob;
-
-    xhr.open("GET", formImage, true);
-    // Set the responseType to blob
-    xhr.responseType = "blob";
-
-    xhr.addEventListener("load", function () {
-        if (xhr.status === 200) {
-            console.log("Image retrieved");
-            
-            // Blob as response
-            blob = xhr.response;
-            console.log("Blob:" + blob);
-
-            return blob
-        }
-    }, false);
-    // Send XHR
-    xhr.send();
-}
-
-
-// App handling
-function addApp() {
+function addApp(e) {
     e.preventDefault();
-    // Open readwrite of db table
-    const transaction = db.transaction(["apps"], "readwrite");
-    // Once successful, do this
-    transaction.oncomplete = () => {
-        console.log("did it!")
-        
-        displayApps();
 
-    }
+    // Wait until the image has been downloaded
+    const fileInput = document.getElementById("icon");
+    const file = fileInput.files[0];
 
-    transaction.onerror = () => {
-        console.error(`Transaction not opened due to error: ${transaction.error}`);
+    const newItem = {
+        name: title.value,
+        url: url.value,
+        icon: file
     };
 
-
-    const newItem = [
-        {
-            name: title.value,
-            url: url.value,
-            icon: createImageBlob(icon.value),
-        },
-    ];
-
-    // Call an object store that's already been added to the database
-    // transaction.objectStore("apps").put(blob, "icon");
+    const transaction = db.transaction(["apps"], "readwrite");
     const objectStore = transaction.objectStore("apps");
 
-    // Make a request to add our newItem object to the object store
-    const objectStoreRequest = objectStore.add(newItem[0]);
+    const request = objectStore.add(newItem);
 
-    objectStoreRequest.onsuccess = (event) => {
-        // Report the success of our request
-        console.log("successfully added app")
-        // Clear the form, ready for adding the next entry
-        title.value = "";
-        url.value = "";
-        icon.value = "";
+    request.onsuccess = () => {
+        console.log("App saved:", request.result);
+        // displayApp(newItem);
     };
 
-};
+    request.onerror = () => {
+        console.error("Failed to save app:", request.error);
+    };
+
+}
 
 function deleteApp(event) {
     const dataApp = event.target.getAttribute("data-app");
@@ -165,3 +107,4 @@ function deleteApp(event) {
         event.target.parentNode.parentNode.removeChild(event.target.parentNode);
     };
 }
+
