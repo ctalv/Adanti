@@ -73,36 +73,39 @@ function displayWidgets() {
     // TODO: check preferences and order
 
     // TEST
-    let apps = [
-        {
-            id: 1,
-            name: "Netflix",
-            url: "https://www.netflix.com/",
-            icon: "assets/icons/netflix.png",
-        },
-        {
-            id: 2,
-            name: "Jellyfin",
-            url: "https://www.netflix.com/",
-            icon: "assets/icons/jellyfin.png",
-        },
-        {
-            id: 3,
-            name: "YouTube",
-            url: "https://www.youtube.com/",
-            icon: "assets/icons/youtube-new.png",
-        }
-    ]
+    // let apps = [
+    //     {
+    //         id: 1,
+    //         name: "Netflix",
+    //         url: "https://www.netflix.com/",
+    //         icon: "assets/icons/netflix.png",
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Jellyfin",
+    //         url: "https://www.netflix.com/",
+    //         icon: "assets/icons/jellyfin.png",
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "YouTube",
+    //         url: "https://www.youtube.com/",
+    //         icon: "assets/icons/youtube-new.png",
+    //     }
+    // ]
+    let apps = []
 
     // Display functions for widgets
     function displayClockWidget() {
         displayClock();
     }
 
-    function displayAppWidget() {
-        for (let i = 0; i < apps.length; i++) {
-            displayApp(apps[i]);
-        }
+    function displayAppWidget(apps) {
+        if (apps) {
+            for (let i = 0; i < apps.length; i++) {
+                displayApp(apps[i]);
+            }
+        };
         // Add app button
         const addAppEle = document.createElement("div");
         addAppEle.setAttribute("class", "add-app");
@@ -165,5 +168,4 @@ function displayWidgets() {
     displayAppWidget();
 }
 
-displayWidgets()
 
