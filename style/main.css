@@ -24,12 +24,28 @@ body {
     font-size: 75px;
 }
 
-.app {
+.app, .add-app {
     margin: 5px;
 }
 
-.app img {
+
+.app img, .add-app p {
     height: 200px;
     width: 200px;
     border-radius: 5px;
+}
+
+.add-app p {
+    color:aliceblue;
+    font-size: 170px;
+    line-height: 170px;
+    text-align: center;
+    margin:0%;
+    /* border: 2px, solid, aliceblue; */
+
+}
+
+
+.artist-attribute {
+    display: none;
 }

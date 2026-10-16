@@ -75,6 +75,31 @@ function displayWidgets() {
         for (let i = 0; i < apps.length; i++) {
             displayApp(apps[i]);
         }
+        const addAppEle = document.createElement("div");
+        addAppEle.setAttribute("class", "add-app");
+
+        const pEle = document.createElement("p");
+        pEle.innerHTML = "+"
+
+        appWidgetEle.appendChild(addAppEle);
+        addAppEle.appendChild(pEle);
+        textFit(document.querySelector("add-app").getElementsByName("p"));
+
+        // const imgEle = document.createElement("img");
+        // imgEle.setAttribute("src", "assets/icons/add-icon.png")
+
+        // appWidgetEle.appendChild(addAppEle);
+        // addAppEle.appendChild(imgEle);
+
+        // // Icon attribution
+        // const aEle = document.createElement("a");
+        // aEle.setAttribute("href", "https://www.flaticon.com/free-icons/plus");
+        // aEle.setAttribute("title", "plus icons");
+        // aEle.setAttribute("class", "artist-attribute");
+        // aEle.innerText = "Plus icons created by Fuzzee - Flaticon";
+        // addAppEle.appendChild(aEle);
+
+
     }
 
     function displaySearchWidget() {
