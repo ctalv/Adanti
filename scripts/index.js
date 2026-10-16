@@ -2,7 +2,8 @@ const widgetEle = document.getElementById("widgets");
 
 function displayWidgets() {
 
-    function displayApps(app) {
+    // Display functions for inside widgets
+    function displayApp(app) {
         // apps
         const appEle = document.createElement("div");
         appEle.setAttribute("class", "app");
@@ -11,7 +12,7 @@ function displayWidgets() {
         const aEle = document.createElement("a");
         imgEle.setAttribute("src", app.icon);
         aEle.setAttribute("href", app.url);
-        
+
         appWidgetEle.appendChild(appEle);
         appEle.appendChild(aEle);
         aEle.appendChild(imgEle);
@@ -19,7 +20,7 @@ function displayWidgets() {
 
     function displaySearch() {
         // search
-        
+
     }
 
     function displayClock() {
@@ -30,15 +31,15 @@ function displayWidgets() {
 
         function refreshClock() {
             refresh = 1000;
-            mytime = setTimeout(function() {refreshClock();}, refresh);
+            mytime = setTimeout(function () { refreshClock(); }, refresh);
             var ClockDate = new Date();
             var NewDate = ClockDate.toDateString();
             NewDate = NewDate + "<br />" + ClockDate.toLocaleTimeString();
             clockEle.innerHTML = NewDate;
 
         }
-        
-       document.getElementsByName("body").onload = refreshClock();
+
+        document.getElementsByName("body").onload = refreshClock();
     }
 
     // TODO: check preferences and order
@@ -65,24 +66,38 @@ function displayWidgets() {
         }
     ]
 
-
-
-    displaySearch()
-
-    const clockWidgetEle = document.createElement("div");
-    clockWidgetEle.setAttribute("class", "clock-widget");
-    widgetEle.appendChild(clockWidgetEle);
-    displayClock();
-
-    const appWidgetEle = document.createElement("div");
-    appWidgetEle.setAttribute("class", "app-widget");
-    widgetEle.appendChild(appWidgetEle);
-    for (let i=0; i<apps.length; i++) {
-        displayApps(apps[i]);
+    // Display functions for widgets
+    function displayClockWidget() {
+        displayClock();
     }
 
+    function displayAppWidget() {
+        for (let i = 0; i < apps.length; i++) {
+            displayApp(apps[i]);
+        }
+    }
 
-    
+    function displaySearchWidget() {
+        displaySearch()
+    }
+
+    // Set all base widget divs
+    const appWidgetEle = document.createElement("div");
+    const clockWidgetEle = document.createElement("div");
+    const searchWidgetEle = document.createElement("div");
+
+    appWidgetEle.setAttribute("class", "app-widget");
+    clockWidgetEle.setAttribute("class", "clock-widget");
+    searchWidgetEle.setAttribute("class", "search-widget");
+
+    widgetEle.appendChild(clockWidgetEle);
+    widgetEle.appendChild(appWidgetEle);
+    widgetEle.appendChild(searchWidgetEle);
+
+    // TODO: If statement if widgets wanted
+    displayClockWidget();
+    displayAppWidget();
 }
 
 displayWidgets()
+
