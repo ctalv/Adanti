@@ -4,8 +4,16 @@
 }
 
 body {
-    background-color: rgb(17, 21, 24);
+    /* background-color: rgb(17, 21, 24); */
+    background-image: url("/assets/backgrounds/pen_ash-snow-10476274_1920.jpg");
+}
 
+#page {
+    margin-top: 100px;
+    width: 75%;
+      max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 button {
@@ -99,13 +107,12 @@ label {
     display: none;
 }
 
-#widgets {}
-
-
 #app-widget,
 #clock-widget {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .clock {

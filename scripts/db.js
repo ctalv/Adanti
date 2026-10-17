@@ -9,7 +9,6 @@ dbOpenRequest.onerror = (event) => {
 };
 
 dbOpenRequest.onsuccess = (event) => {
-    console.log("DB LOADED")
     db = dbOpenRequest.result;
     displayData();
 };
@@ -29,8 +28,6 @@ dbOpenRequest.onupgradeneeded = (event) => {
     objectStore.createIndex("name", "name", { unique: false });
     objectStore.createIndex("url", "url", { unique: false });
     objectStore.createIndex("icon", "icon", { unique: false });
-
-    console.log("Object store created")
 };
 
 
@@ -86,7 +83,6 @@ function addApp(e) {
     const request = objectStore.add(newItem);
 
     request.onsuccess = () => {
-        console.log("App saved:", request.result);
         clearWidget("app-widget");
         getApps();
         closeModals();
@@ -114,10 +110,7 @@ function addApp(e) {
 // }
 
 function deleteApp(event) {
-    console.log(event)
     const key = parseInt(event.target.parentNode.children.pk.value)
-    console.log(key)
-
     const transaction = db.transaction(["apps"], "readwrite");
     transaction.objectStore("apps").delete(key);
     transaction.oncomplete = () => {
@@ -125,6 +118,7 @@ function deleteApp(event) {
         clearWidget("app-widget");
         getApps();
         closeModals();
+        removeAppEditDeleteIcons();
 
     };
 }

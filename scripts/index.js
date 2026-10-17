@@ -174,7 +174,6 @@ function appSubmit() {
 }
 
 function appendAppEditDeleteIcons() {
-    console.log("this function")
     // Hide add app button
 
     const appEle = document.getElementsByClassName("app");
@@ -182,28 +181,14 @@ function appendAppEditDeleteIcons() {
 
     for (let i = 0; i < appEle.length; i++) {
         // TODO: Edit apps
-
-        // const editEle = document.createElement("button");
-        // editEle.setAttribute("class", "edit-app");
-        // editEle.addEventListener("click", editApp);
-        // const editImg = document.createElement("img"); 
-        // editImg.setAttribute("src", "assets/icons/pencil.png");
-        // editImg.setAttribute("alt", "Pencil icon");
-        // editEle.appendChild(editImg);
-        // appEle[i].appendChild(editEle);
-
         const deleteEle = document.createElement("button");
         deleteEle.setAttribute("class", "delete-app");
         deleteEle.addEventListener("click", deleteApp);
         deleteEle.innerHTML = "X"
-
         appEle[i].appendChild(deleteEle);
-
-        
     }
    
     // Reset button
-    // Hide start, show end
     const startEditImgEle = document.getElementById("start-edit");
     const endEditImgEle = document.getElementById("end-edit");
 
@@ -219,18 +204,14 @@ function appendAppEditDeleteIcons() {
 }
 
 function removeAppEditDeleteIcons() {
-    console.log("that function")
     // Show add app button
     const deleteEle = document.getElementsByClassName("delete-app");
 
-    for (let i = 0; i <= deleteEle.length; i++) {
-        deleteEle[i].remove();
+    while(deleteEle.length > 0){
+        deleteEle[0].remove();
     }
 
-
-
     // Reset button
-    // Hide end, show start
     const startEditImgEle = document.getElementById("start-edit");
     const endEditImgEle = document.getElementById("end-edit");
 
