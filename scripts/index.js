@@ -77,8 +77,7 @@ function displayClock() {
         var ClockDate = new Date();
         var NewDate = ClockDate.toDateString();
         NewDate = NewDate + "<br />" + ClockDate.toLocaleTimeString();
-        clockEle.innerHTML = NewDate;
-
+        document.getElementsByClassName("clock")[0].innerHTML = NewDate;
     }
 
     document.getElementsByName("body").onload = refreshClock();
@@ -95,6 +94,10 @@ function displayWidgets(data) {
     // Display functions for widgets
     function displayClockWidget() {
         displayClock();
+    }
+
+    function displaySearchWidget() {
+        displaySearch()
     }
 
     function displayAppWidget(apps) {
@@ -143,12 +146,10 @@ function displayWidgets(data) {
 
     }
 
-    function displaySearchWidget() {
-        displaySearch()
-    }
 
 
-    // TODO: If statement if widgets wanted
+
+    // TODO: If statement if widgets wanted and order
     displayClockWidget();
     displayAppWidget(apps);
 
