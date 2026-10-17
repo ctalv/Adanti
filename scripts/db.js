@@ -11,8 +11,9 @@ dbOpenRequest.onerror = (event) => {
 dbOpenRequest.onsuccess = (event) => {
     console.log("DB LOADED")
     db = dbOpenRequest.result;
-    displayData();
+    initializeWidgets();
 
+    displayData();
     
 };
 
@@ -40,16 +41,16 @@ dbOpenRequest.onupgradeneeded = (event) => {
 
 // Initialize data
 function displayData() {
-    
-    initializeWidgets();
-
-
+    // Display Clock
+    displayClock();
+    // Display Apps
     const objectStore = db.transaction("apps").objectStore("apps");
     objectStore.openCursor().onsuccess = (event) => {
         const cursor = event.target.result;
         // Check if there are no (more) cursor items to iterate through
         if (!cursor) {
             // No more items to iterate through, we quit.
+            appSubmit();
             return;
         }
 
@@ -59,10 +60,8 @@ function displayData() {
         cursor.continue();
     };
 
-    // Declare any submit modals
 
-    const appForm = document.getElementById("add-app-form");
-    appForm.addEventListener("submit", addApp, false);
+
 };
 
 function addApp(e) {

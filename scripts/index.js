@@ -101,44 +101,6 @@ function initializeWidgets() {
         appWidgetEle.setAttribute("id", "app-widget");
         widgetEle.appendChild(appWidgetEle);
 
-        // Add app button
-        const addAppEle = document.createElement("div");
-        addAppEle.setAttribute("class", "add-app");
-        const pEle = document.createElement("button");
-        pEle.setAttribute("id", "add-app-button");
-        pEle.innerHTML = "+"
-        appWidgetEle.appendChild(addAppEle);
-        addAppEle.appendChild(pEle);
-
-        // Add app modal
-        const htmlModal = `
-            <div id="add-app-modal" class="modal">
-
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <div class="modal-heading">Add new app
-                    <span class="close">&times;</span>
-                    </div>
-                    
-                    <form id="add-app-form" class="modal-form">
-                        <label for="title">Title: </label>
-                        <input type="text" id="title" name="title">
-                        <label for="url">URL: </label>
-                        <input type="url" id="url" name="url">
-                        <label for="icon" class="custom-file-upload">Icon: </label>
-                        <input type="file" id="icon" name="icon">
-                        <input type="submit" id="add-app-submit" value="Submit">
-                    </form>
-                </div>
-
-            </div>
-        `;
-
-        document.getElementById("page").innerHTML += htmlModal;
-
-        appendModal("add-app-modal", "add-app-button");
-
-
     }
 
 
@@ -149,4 +111,46 @@ function initializeWidgets() {
     
 }
 
+
+function appSubmit() {
+        // Add app button
+    const appWidgetEle = document.getElementById("app-widget")
+    const addAppEle = document.createElement("div");
+    addAppEle.setAttribute("class", "add-app");
+    const pEle = document.createElement("button");
+    pEle.setAttribute("id", "add-app-button");
+    pEle.innerHTML = "+"
+    appWidgetEle.appendChild(addAppEle);
+    addAppEle.appendChild(pEle);
+
+    // Add app modal
+    const htmlModal = `
+        <div id="add-app-modal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-heading">Add new app
+                <span class="close">&times;</span>
+                </div>
+                
+                <form id="add-app-form" class="modal-form">
+                    <label for="title">Title: </label>
+                    <input type="text" id="title" name="title">
+                    <label for="url">URL: </label>
+                    <input type="url" id="url" name="url">
+                    <label for="icon" class="custom-file-upload">Icon: </label>
+                    <input type="file" id="icon" name="icon">
+                    <input type="submit" id="add-app-submit" value="Submit">
+                </form>
+            </div>
+
+        </div>
+    `;
+
+    document.getElementById("page").innerHTML += htmlModal;
+
+    appendModal("add-app-modal", "add-app-button");
+    const appForm = document.getElementById("add-app-form");
+    appForm.addEventListener("submit", addApp, false);
+}
 
