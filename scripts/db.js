@@ -59,7 +59,8 @@ function getApps() {
         }
 
         const { name, url, icon } = cursor.value;
-        displayApp(name, url, icon)
+        const id = cursor.key;
+        displayApp(id, name, url, icon)
 
         cursor.continue();
     };
@@ -97,28 +98,51 @@ function addApp(e) {
 
 }
 
+// function editApp(event) {
+//     const dataApp = event.target.getAttribute("data-app");
+//     // Populate add/edit app modal form
+
+//     const transaction = db.transaction(["apps"], "readwrite");
+//     transaction.objectStore("apps").put(dataApp);
+
+//     transaction.oncomplete = () => {
+//         // Redisplay all apps
+//         const appForm = document.getElementById("app-form");
+//         appForm.removeEventListener("submit", editApp, false);
+//         appForm.addEventListener("submit", addApp, false);
+//     };
+// }
+
 function deleteApp(event) {
-    const dataApp = event.target.getAttribute("data-app");
+    console.log(event)
+    const key = parseInt(event.target.parentNode.children.pk.value)
+    console.log(key)
 
     const transaction = db.transaction(["apps"], "readwrite");
-    transaction.objectStore("apps").delete(dataApp);
-
+    transaction.objectStore("apps").delete(key);
     transaction.oncomplete = () => {
-        // Delete the parent of the button, which is the list item, so it is no longer displayed
-        event.target.parentNode.parentNode.removeChild(event.target.parentNode);
+        // Redisplay all apps
+        clearWidget("app-widget");
+        getApps();
+        closeModals();
+
     };
 }
 
+// // Trigger modals and alert functions
+// function triggerAppEdit() {
+//     // Populate form
+    
+    
+//     // On submit, saves edits to db
+//     const appForm = document.getElementById("app-form");
+//     appForm.removeEventListener("submit", addApp, false);
+//     appForm.addEventListener("submit", editApp, false);
+// }
 
-function editApp(event) {
-    const dataApp = event.target.getAttribute("data-app");
-    // Populate add/edit app modal form
+function triggerAppDelete() {
+    // Trigger alert
 
-    const transaction = db.transaction(["apps"], "readwrite");
-    transaction.objectStore("apps").put(dataApp);
-
-    transaction.oncomplete = () => {
-        // Delete the parent of the button, which is the list item, so it is no longer displayed
-        event.target.parentNode.parentNode.removeChild(event.target.parentNode);
-    };
+    // On submit, delete row from db
+    
 }

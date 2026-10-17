@@ -1,6 +1,6 @@
 const widgetEle = document.getElementById("widgets");
 
-// Set all base widget divs
+// Modal functions
 function appendModal(modalID, popModalBtn) {
     // Get the modal
     var modal = document.getElementById(modalID);
@@ -29,7 +29,15 @@ function appendModal(modalID, popModalBtn) {
     }
 }
 
-function displayApp(alt, url, src) {
+function closeModals() {
+    let modalEle = document.getElementsByClassName("modal");
+    for (let i = 0; i < modalEle.length; i++) {
+        modalEle[i].style.display = "none";
+    }
+}
+
+// Display widget content
+function displayApp(pk, alt, url, src) {
     // apps
     const appWidgetEle = document.getElementById("app-widget")
     const appEle = document.createElement("div");
@@ -37,6 +45,7 @@ function displayApp(alt, url, src) {
     // TODO: determine list or grid (grid default)
     const imgEle = document.createElement("img");
     const aEle = document.createElement("a");
+    const pkEle = document.createElement("input");
 
     var URL = window.URL || window.webkitURL;
     var imgURL = URL.createObjectURL(src);
@@ -44,11 +53,15 @@ function displayApp(alt, url, src) {
     imgEle.setAttribute("src", imgURL);
     imgEle.setAttribute("alt", alt);
     aEle.setAttribute("href", url);
-
+    pkEle.setAttribute("type", "hidden");
+    pkEle.setAttribute("name", "pk");
+    pkEle.setAttribute("value", pk);
 
     appWidgetEle.appendChild(appEle);
     appEle.appendChild(aEle);
     aEle.appendChild(imgEle);
+    appEle.appendChild(pkEle);
+
 }
 
 function displaySearch() {
@@ -76,6 +89,7 @@ function displayClock() {
     document.getElementsByName("body").onload = refreshClock();
 }
 
+// Widget functions
 function initializeWidgets() {
 
     // Display functions for inside widgets
@@ -109,7 +123,14 @@ function initializeWidgets() {
     initializeAppWidget();
 }
 
+function clearWidget(id) {
+    const widgetEle = document.getElementById(id);
+    while (widgetEle.firstChild) {
+        widgetEle.removeChild(widgetEle.lastChild);
+    }
+}
 
+// App specific functions
 function appSubmit() {
     // Add app button
     const appWidgetEle = document.getElementById("app-widget")
@@ -152,36 +173,30 @@ function appSubmit() {
     appForm.addEventListener("submit", addApp, false);
 }
 
-function closeModals() {
-    let modalEle = document.getElementsByClassName("modal");
-    for (let i = 0; i < modalEle.length; i++) {
-        modalEle[i].style.display = "none";
-    }
-}
-
-function clearWidget(id) {
-    const widgetEle = document.getElementById(id);
-    while (widgetEle.firstChild) {
-        widgetEle.removeChild(widgetEle.lastChild);
-    }
-}
-
 function appendAppEditDeleteIcons() {
     console.log("this function")
     // Hide add app button
 
     const appEle = document.getElementsByClassName("app");
 
-    const deleteEle = document.createElement("button");
-    const editEle = document.createElement("button");
-    deleteEle.setAttribute("class", "delete-app");
-    editEle.setAttribute("class", "edit-app");
-    deleteEle.addEventListener("click", deleteApp);
-    editEle.addEventListener("click", editApp);
-
 
     for (let i = 0; i < appEle.length; i++) {
-        appEle[i].appendChild(editEle);
+        // TODO: Edit apps
+
+        // const editEle = document.createElement("button");
+        // editEle.setAttribute("class", "edit-app");
+        // editEle.addEventListener("click", editApp);
+        // const editImg = document.createElement("img"); 
+        // editImg.setAttribute("src", "assets/icons/pencil.png");
+        // editImg.setAttribute("alt", "Pencil icon");
+        // editEle.appendChild(editImg);
+        // appEle[i].appendChild(editEle);
+
+        const deleteEle = document.createElement("button");
+        deleteEle.setAttribute("class", "delete-app");
+        deleteEle.addEventListener("click", deleteApp);
+        deleteEle.innerHTML = "X"
+
         appEle[i].appendChild(deleteEle);
     }
    
@@ -194,10 +209,15 @@ function appendAppEditDeleteIcons() {
     
 }
 
-
 function removeAppEditDeleteIcons() {
     console.log("that function")
     // Show add app button
+    const deleteEle = document.getElementsByClassName("delete-app");
+
+    for (let i = 0; i <= deleteEle.length; i++) {
+        deleteEle[i].remove();
+    }
+
 
 
     // Reset button
@@ -207,6 +227,8 @@ function removeAppEditDeleteIcons() {
     editPageEle.addEventListener("click", appendAppEditDeleteIcons);
 }
 
+
+// Event lsitener loads
 window.onload = (event) => {
     const editPageEle = document.getElementById("edit-page-button");
     editPageEle.addEventListener("click", appendAppEditDeleteIcons);
