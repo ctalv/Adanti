@@ -95,6 +95,10 @@ label {
     cursor: pointer;
 }
 
+#end-edit {
+    display: none;
+}
+
 #widgets {}
 
 
@@ -113,6 +117,7 @@ label {
 .app,
 .add-app {
     margin: 5px;
+    position: relative;
 }
 
 
@@ -154,7 +159,14 @@ label {
     z-index: 1;
     color: aliceblue;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    position: relative;
+    position: absolute;
+}
 
+.delete-app {
+    left: 0px;
+}
+
+.edit-app {
+    right:0px;
 }
 

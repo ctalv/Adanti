@@ -198,10 +198,19 @@ function appendAppEditDeleteIcons() {
         deleteEle.innerHTML = "X"
 
         appEle[i].appendChild(deleteEle);
+
+        
     }
    
     // Reset button
     // Hide start, show end
+    const startEditImgEle = document.getElementById("start-edit");
+    const endEditImgEle = document.getElementById("end-edit");
+
+    startEditImgEle.style.display = "none";
+    endEditImgEle.style.display = "block";
+
+
     const editPageEle = document.getElementById("edit-page-button");
     editPageEle.removeEventListener("click", appendAppEditDeleteIcons);
     editPageEle.addEventListener("click", removeAppEditDeleteIcons);
@@ -222,6 +231,12 @@ function removeAppEditDeleteIcons() {
 
     // Reset button
     // Hide end, show start
+    const startEditImgEle = document.getElementById("start-edit");
+    const endEditImgEle = document.getElementById("end-edit");
+
+    startEditImgEle.style.display = "block";
+    endEditImgEle.style.display = "none";
+    
     const editPageEle = document.getElementById("edit-page-button");
     editPageEle.removeEventListener("click", removeAppEditDeleteIcons);
     editPageEle.addEventListener("click", appendAppEditDeleteIcons);
