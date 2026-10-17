@@ -41,7 +41,8 @@ dbOpenRequest.onupgradeneeded = (event) => {
 // Initialize data
 function displayData() {
     
-    let apps = []
+    initializeWidgets();
+
 
     const objectStore = db.transaction("apps").objectStore("apps");
     objectStore.openCursor().onsuccess = (event) => {
@@ -53,15 +54,10 @@ function displayData() {
         }
 
         const { name, url, icon } = cursor.value;
-        apps.push({ name, url, icon })
+        displayApp(name, url, icon)
+
         cursor.continue();
     };
-
-    let data = {
-        apps: apps,
-    }
-
-    initializeWidgets();
 
     // Declare any submit modals
 

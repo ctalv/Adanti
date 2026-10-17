@@ -29,9 +29,9 @@ function appendModal(modalID, popModalBtn) {
     } 
 }
 
-function displayApp(app) {
+function displayApp(alt, url, src) {
     // apps
-    const appWidgetEle = getElementById("app-widget")
+    const appWidgetEle = document.getElementById("app-widget")
     const appEle = document.createElement("div");
     appEle.setAttribute("class", "app");
     // TODO: determine list or grid (grid default)
@@ -39,10 +39,11 @@ function displayApp(app) {
     const aEle = document.createElement("a");
 
     var URL = window.URL || window.webkitURL;
-    var imgURL = URL.createObjectURL(app.icon);
+    var imgURL = URL.createObjectURL(src);
 
     imgEle.setAttribute("src", imgURL);
-    aEle.setAttribute("href", app.url);
+    imgEle.setAttribute("alt", alt);
+    aEle.setAttribute("href", url);
 
     
     appWidgetEle.appendChild(appEle);
