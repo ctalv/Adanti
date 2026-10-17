@@ -5,7 +5,17 @@
 
 body {
     background-color: rgb(17, 21, 24);
-    
+
+}
+
+button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
 }
 
 /* The Modal (background) */
@@ -115,14 +125,6 @@ label {
 }
 
 #add-app-button {
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-
     color: aliceblue;
     font-size: 100px;
     line-height: 100px;
@@ -136,3 +138,10 @@ label {
 .artist-attribute {
     display: none;
 }
+
+.edit-app,
+.delete-app {
+    width: 50px;
+    height: 50px;
+}
+

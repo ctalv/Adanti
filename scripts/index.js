@@ -12,21 +12,21 @@ function appendModal(modalID, popModalBtn) {
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks on the button, open the modal
-    btn.onclick = function() {
-    modal.style.display = "block";
+    btn.onclick = function () {
+        modal.style.display = "block";
     }
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-    modal.style.display = "none";
+    span.onclick = function () {
+        modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
-    } 
 }
 
 function displayApp(alt, url, src) {
@@ -45,7 +45,7 @@ function displayApp(alt, url, src) {
     imgEle.setAttribute("alt", alt);
     aEle.setAttribute("href", url);
 
-    
+
     appWidgetEle.appendChild(appEle);
     appEle.appendChild(aEle);
     aEle.appendChild(imgEle);
@@ -53,7 +53,7 @@ function displayApp(alt, url, src) {
 
 function displaySearch() {
     // search
-    
+
 
 }
 
@@ -79,7 +79,7 @@ function displayClock() {
 function initializeWidgets() {
 
     // Display functions for inside widgets
-    
+
     // TODO: check preferences and order
 
 
@@ -103,17 +103,15 @@ function initializeWidgets() {
 
     }
 
-
-    // TODO: If statement if widgets wanted and order
+    // TODO: User order preference of widgets
+    initializeSearchWidget()
     initializeClockWidget();
     initializeAppWidget();
-
-    
 }
 
 
 function appSubmit() {
-        // Add app button
+    // Add app button
     const appWidgetEle = document.getElementById("app-widget")
     const addAppEle = document.createElement("div");
     addAppEle.setAttribute("class", "add-app");
@@ -164,6 +162,22 @@ function closeModals() {
 function clearWidget(id) {
     const widgetEle = document.getElementById(id);
     while (widgetEle.firstChild) {
-      widgetEle.removeChild(widgetEle.lastChild);
+        widgetEle.removeChild(widgetEle.lastChild);
     }
+}
+
+function appendEditDeleteIcons() {
+    const appWidgetEle = document.getElementById("app-widget");
+    const appEle = document.getElementsByClassName("app");
+
+    const deleteEle = document.createElement("button");
+    const editEle = document.createElement("button");
+    deleteEle.setAttribute("class", "delete-app");
+    editEle.setAttribute("class", "edit-app");
+
+    for (let i = 0; i < appEle.length; i++) {
+        appEle[i].appendChild(editEle);
+        appEle[i].appendChild(deleteEle);
+    }
+
 }
