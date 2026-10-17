@@ -54,15 +54,17 @@ function displayData() {
 
         const { name, url, icon } = cursor.value;
         apps.push({ name, url, icon })
+        cursor.continue();
     };
 
     let data = {
         apps: apps,
     }
 
-    displayWidgets(data);
+    initializeWidgets();
 
     // Declare any submit modals
+
     const appForm = document.getElementById("add-app-form");
     appForm.addEventListener("submit", addApp, false);
 };

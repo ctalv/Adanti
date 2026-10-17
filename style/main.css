@@ -88,8 +88,8 @@ label {
 
 
 
-.app-widget,
-.clock-widget {
+#app-widget,
+#clock-widget {
     display: flex;
     justify-content: center;
 }

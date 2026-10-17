@@ -1,18 +1,6 @@
 const widgetEle = document.getElementById("widgets");
 
 // Set all base widget divs
-const appWidgetEle = document.createElement("div");
-const clockWidgetEle = document.createElement("div");
-const searchWidgetEle = document.createElement("div");
-
-appWidgetEle.setAttribute("class", "app-widget");
-clockWidgetEle.setAttribute("class", "clock-widget");
-searchWidgetEle.setAttribute("class", "search-widget");
-
-widgetEle.appendChild(clockWidgetEle);
-widgetEle.appendChild(appWidgetEle);
-widgetEle.appendChild(searchWidgetEle);
-
 function appendModal(modalID, popModalBtn) {
     // Get the modal
     var modal = document.getElementById(modalID);
@@ -43,6 +31,7 @@ function appendModal(modalID, popModalBtn) {
 
 function displayApp(app) {
     // apps
+    const appWidgetEle = getElementById("app-widget")
     const appEle = document.createElement("div");
     appEle.setAttribute("class", "app");
     // TODO: determine list or grid (grid default)
@@ -55,6 +44,7 @@ function displayApp(app) {
     imgEle.setAttribute("src", imgURL);
     aEle.setAttribute("href", app.url);
 
+    
     appWidgetEle.appendChild(appEle);
     appEle.appendChild(aEle);
     aEle.appendChild(imgEle);
@@ -62,11 +52,13 @@ function displayApp(app) {
 
 function displaySearch() {
     // search
+    
 
 }
 
 function displayClock() {
     // clock
+    const clockWidgetEle = document.getElementById("clock-widget")
     const clockEle = document.createElement("div");
     clockEle.setAttribute("class", "clock");
     clockWidgetEle.appendChild(clockEle);
@@ -83,29 +75,31 @@ function displayClock() {
     document.getElementsByName("body").onload = refreshClock();
 }
 
-function displayWidgets(data) {
+function initializeWidgets() {
 
     // Display functions for inside widgets
     
     // TODO: check preferences and order
 
-    let apps = data.apps
 
     // Display functions for widgets
-    function displayClockWidget() {
-        displayClock();
+    function initializeClockWidget() {
+        const clockWidgetEle = document.createElement("div");
+        clockWidgetEle.setAttribute("id", "clock-widget");
+        widgetEle.appendChild(clockWidgetEle);
     }
 
-    function displaySearchWidget() {
-        displaySearch()
+    function initializeSearchWidget() {
+        const searchWidgetEle = document.createElement("div");
+        searchWidgetEle.setAttribute("id", "search-widget");
+        widgetEle.appendChild(searchWidgetEle);
     }
 
-    function displayAppWidget(apps) {
-        if (apps) {
-            for (let i = 0; i < apps.length; i++) {
-                displayApp(apps[i]);
-            }
-        };
+    function initializeAppWidget() {
+        const appWidgetEle = document.createElement("div");
+        appWidgetEle.setAttribute("id", "app-widget");
+        widgetEle.appendChild(appWidgetEle);
+
         // Add app button
         const addAppEle = document.createElement("div");
         addAppEle.setAttribute("class", "add-app");
@@ -147,11 +141,9 @@ function displayWidgets(data) {
     }
 
 
-
-
     // TODO: If statement if widgets wanted and order
-    displayClockWidget();
-    displayAppWidget(apps);
+    initializeClockWidget();
+    initializeAppWidget();
 
     
 }
