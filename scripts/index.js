@@ -1,5 +1,14 @@
 const widgetEle = document.getElementById("widgets");
 
+window.onload = (event) => {
+const editPageEle = document.getElementById("edit-page-button");
+
+editPageEle.addEventListener("click", appendEditDeleteIcons);
+// editPageEle.addEventListener("click", function(){console.log("yo");});
+console.log(editPageEle)
+}
+
+
 // Set all base widget divs
 function appendModal(modalID, popModalBtn) {
     // Get the modal
@@ -167,6 +176,7 @@ function clearWidget(id) {
 }
 
 function appendEditDeleteIcons() {
+    console.log("hit function")
     const appWidgetEle = document.getElementById("app-widget");
     const appEle = document.getElementsByClassName("app");
 
@@ -179,5 +189,10 @@ function appendEditDeleteIcons() {
         appEle[i].appendChild(editEle);
         appEle[i].appendChild(deleteEle);
     }
+}
+
+
+function removeEditDeleteIcons() {
 
 }
+

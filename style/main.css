@@ -30,6 +30,7 @@ button {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
 }
+
 .modal-heading {
     font-size: 35px;
     text-align: center;
@@ -48,22 +49,22 @@ button {
 .modal-form {
     font-size: 30px;
     padding: 10px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: [label] auto [input] 1fr;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: [label] auto [input] 1fr;
 }
 
 input {
-  grid-column: input;
-  align-self: center;
-  height: 30px;
-  font-size: 20px;
+    grid-column: input;
+    align-self: center;
+    height: 30px;
+    font-size: 20px;
 }
 
 
 label {
-  grid-column: label;
-  align-self: center;
+    grid-column: label;
+    align-self: center;
 }
 
 /* input[type="file"] {
@@ -94,9 +95,7 @@ label {
     cursor: pointer;
 }
 
-#widgets {
-    
-}
+#widgets {}
 
 
 #app-widget,
@@ -139,9 +138,17 @@ label {
     display: none;
 }
 
+#edit-page-button img {
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    margin: 5px;
+}
+
 .edit-app,
 .delete-app {
     width: 50px;
     height: 50px;
 }
-
