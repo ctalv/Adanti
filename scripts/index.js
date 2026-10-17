@@ -1,14 +1,5 @@
 const widgetEle = document.getElementById("widgets");
 
-window.onload = (event) => {
-const editPageEle = document.getElementById("edit-page-button");
-
-editPageEle.addEventListener("click", appendEditDeleteIcons);
-// editPageEle.addEventListener("click", function(){console.log("yo");});
-console.log(editPageEle)
-}
-
-
 // Set all base widget divs
 function appendModal(modalID, popModalBtn) {
     // Get the modal
@@ -132,7 +123,7 @@ function appSubmit() {
 
     // Add app modal
     const htmlModal = `
-        <div id="add-app-modal" class="modal">
+        <div id="app-modal" class="modal">
 
             <!-- Modal content -->
             <div class="modal-content">
@@ -140,14 +131,14 @@ function appSubmit() {
                 <span class="close">&times;</span>
                 </div>
                 
-                <form id="add-app-form" class="modal-form">
+                <form id="app-form" class="modal-form">
                     <label for="title">Title: </label>
                     <input type="text" id="title" name="title">
                     <label for="url">URL: </label>
                     <input type="url" id="url" name="url">
                     <label for="icon" class="custom-file-upload">Icon: </label>
                     <input type="file" id="icon" name="icon">
-                    <input type="submit" id="add-app-submit" value="Submit">
+                    <input type="submit" id="app-submit" value="Submit">
                 </form>
             </div>
 
@@ -156,8 +147,8 @@ function appSubmit() {
 
     document.getElementById("page").innerHTML += htmlModal;
 
-    appendModal("add-app-modal", "add-app-button");
-    const appForm = document.getElementById("add-app-form");
+    appendModal("app-modal", "add-app-button");
+    const appForm = document.getElementById("app-form");
     appForm.addEventListener("submit", addApp, false);
 }
 
@@ -175,24 +166,48 @@ function clearWidget(id) {
     }
 }
 
-function appendEditDeleteIcons() {
-    console.log("hit function")
-    const appWidgetEle = document.getElementById("app-widget");
+function appendAppEditDeleteIcons() {
+    console.log("this function")
+    // Hide add app button
+
     const appEle = document.getElementsByClassName("app");
 
     const deleteEle = document.createElement("button");
     const editEle = document.createElement("button");
     deleteEle.setAttribute("class", "delete-app");
     editEle.setAttribute("class", "edit-app");
+    deleteEle.addEventListener("click", deleteApp);
+    editEle.addEventListener("click", editApp);
+
 
     for (let i = 0; i < appEle.length; i++) {
         appEle[i].appendChild(editEle);
         appEle[i].appendChild(deleteEle);
     }
+   
+    // Reset button
+    // Hide start, show end
+    const editPageEle = document.getElementById("edit-page-button");
+    editPageEle.removeEventListener("click", appendAppEditDeleteIcons);
+    editPageEle.addEventListener("click", removeAppEditDeleteIcons);
+
+    
 }
 
 
-function removeEditDeleteIcons() {
+function removeAppEditDeleteIcons() {
+    console.log("that function")
+    // Show add app button
 
+
+    // Reset button
+    // Hide end, show start
+    const editPageEle = document.getElementById("edit-page-button");
+    editPageEle.removeEventListener("click", removeAppEditDeleteIcons);
+    editPageEle.addEventListener("click", appendAppEditDeleteIcons);
 }
 
+window.onload = (event) => {
+    const editPageEle = document.getElementById("edit-page-button");
+    editPageEle.addEventListener("click", appendAppEditDeleteIcons);
+}

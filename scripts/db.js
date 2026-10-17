@@ -109,3 +109,16 @@ function deleteApp(event) {
     };
 }
 
+
+function editApp(event) {
+    const dataApp = event.target.getAttribute("data-app");
+    // Populate add/edit app modal form
+
+    const transaction = db.transaction(["apps"], "readwrite");
+    transaction.objectStore("apps").put(dataApp);
+
+    transaction.oncomplete = () => {
+        // Delete the parent of the button, which is the list item, so it is no longer displayed
+        event.target.parentNode.parentNode.removeChild(event.target.parentNode);
+    };
+}
