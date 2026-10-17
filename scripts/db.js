@@ -11,10 +11,7 @@ dbOpenRequest.onerror = (event) => {
 dbOpenRequest.onsuccess = (event) => {
     console.log("DB LOADED")
     db = dbOpenRequest.result;
-    initializeWidgets();
-
     displayData();
-    
 };
 
 
@@ -41,9 +38,16 @@ dbOpenRequest.onupgradeneeded = (event) => {
 
 // Initialize data
 function displayData() {
+
+    initializeWidgets();
+
     // Display Clock
     displayClock();
     // Display Apps
+    getApps();
+};
+
+function getApps() {
     const objectStore = db.transaction("apps").objectStore("apps");
     objectStore.openCursor().onsuccess = (event) => {
         const cursor = event.target.result;
@@ -59,10 +63,8 @@ function displayData() {
 
         cursor.continue();
     };
+}
 
-
-
-};
 
 function addApp(e) {
     e.preventDefault();
@@ -84,7 +86,9 @@ function addApp(e) {
 
     request.onsuccess = () => {
         console.log("App saved:", request.result);
-        // displayApp(newItem);
+        clearWidget("app-widget");
+        getApps();
+        closeModals();
     };
 
     request.onerror = () => {

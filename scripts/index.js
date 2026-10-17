@@ -154,3 +154,16 @@ function appSubmit() {
     appForm.addEventListener("submit", addApp, false);
 }
 
+function closeModals() {
+    let modalEle = document.getElementsByClassName("modal");
+    for (let i = 0; i < modalEle.length; i++) {
+        modalEle[i].style.display = "none";
+    }
+}
+
+function clearWidget(id) {
+    const widgetEle = document.getElementById(id);
+    while (widgetEle.firstChild) {
+      widgetEle.removeChild(widgetEle.lastChild);
+    }
+}
