@@ -115,8 +115,9 @@ function deleteApp(event) {
     transaction.objectStore("apps").delete(key);
     transaction.oncomplete = () => {
         // Redisplay all apps
-        clearWidget("app-widget");
-        getApps();
+        // clearWidget("app-widget");
+        // getApps();
+        event.target.parentElement.remove()
         closeModals();
         removeAppEditDeleteIcons();
 
