@@ -122,21 +122,3 @@ function deleteApp(event) {
 
     };
 }
-
-// // Trigger modals and alert functions
-// function triggerAppEdit() {
-//     // Populate form
-    
-    
-//     // On submit, saves edits to db
-//     const appForm = document.getElementById("app-form");
-//     appForm.removeEventListener("submit", addApp, false);
-//     appForm.addEventListener("submit", editApp, false);
-// }
-
-function triggerAppDelete() {
-    // Trigger alert
-
-    // On submit, delete row from db
-    
-}
