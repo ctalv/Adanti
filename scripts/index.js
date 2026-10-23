@@ -187,7 +187,7 @@ function appendAppEditDeleteIcons() {
         deleteEle.innerHTML = "X"
         appEle[i].appendChild(deleteEle);
     }
-   
+
     // Reset button
     const startEditImgEle = document.getElementById("start-edit");
     const endEditImgEle = document.getElementById("end-edit");
@@ -195,19 +195,16 @@ function appendAppEditDeleteIcons() {
     startEditImgEle.style.display = "none";
     endEditImgEle.style.display = "block";
 
-
     const editPageEle = document.getElementById("edit-page-button");
     editPageEle.removeEventListener("click", appendAppEditDeleteIcons);
     editPageEle.addEventListener("click", removeAppEditDeleteIcons);
-
-    
 }
 
 function removeAppEditDeleteIcons() {
     // Show add app button
     const deleteEle = document.getElementsByClassName("delete-app");
 
-    while(deleteEle.length > 0){
+    while (deleteEle.length > 0) {
         deleteEle[0].remove();
     }
 
@@ -217,7 +214,7 @@ function removeAppEditDeleteIcons() {
 
     startEditImgEle.style.display = "block";
     endEditImgEle.style.display = "none";
-    
+
     const editPageEle = document.getElementById("edit-page-button");
     editPageEle.removeEventListener("click", removeAppEditDeleteIcons);
     editPageEle.addEventListener("click", appendAppEditDeleteIcons);

@@ -115,28 +115,11 @@ function deleteApp(event) {
     transaction.objectStore("apps").delete(key);
     transaction.oncomplete = () => {
         // Redisplay all apps
-        clearWidget("app-widget");
-        getApps();
+        // clearWidget("app-widget");
+        // getApps();
+        event.target.parentElement.remove()
         closeModals();
         removeAppEditDeleteIcons();
 
     };
-}
-
-// // Trigger modals and alert functions
-// function triggerAppEdit() {
-//     // Populate form
-    
-    
-//     // On submit, saves edits to db
-//     const appForm = document.getElementById("app-form");
-//     appForm.removeEventListener("submit", addApp, false);
-//     appForm.addEventListener("submit", editApp, false);
-// }
-
-function triggerAppDelete() {
-    // Trigger alert
-
-    // On submit, delete row from db
-    
 }
